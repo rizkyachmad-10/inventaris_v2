@@ -84,7 +84,8 @@ php_errors.log
 #-------------------------
 # Composer
 #-------------------------
-vendor/
+# vendor/ sengaja tidak di-ignore agar ikut ter-push ke GitHub
+# vendor/
 
 #-------------------------
 # IDE / Development Files
