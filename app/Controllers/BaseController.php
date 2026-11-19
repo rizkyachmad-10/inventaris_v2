@@ -5,41 +5,39 @@ namespace App\Controllers;
 use CodeIgniter\Controller;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
+use CodeIgniter\Session\Session;
 use Psr\Log\LoggerInterface;
 
 /**
- * BaseController provides a convenient place for loading components
- * and performing functions that are needed by all your controllers.
+ * BaseController menjadi tempat berbagi komponen untuk semua controller.
+ * Controller lain cukup meng-extend class ini:
  *
- * Extend this class in any new controllers:
- * ```
- *     class Home extends BaseController
- * ```
- *
- * For security, be sure to declare any new methods as protected or private.
+ *     class Auth extends BaseController
  */
 abstract class BaseController extends Controller
 {
     /**
-     * Be sure to declare properties for any property fetch you initialized.
-     * The creation of dynamic property is deprecated in PHP 8.2.
+     * Helper yang otomatis dimuat di semua controller turunan.
+     * - url  : base_url(), site_url(), redirect()
+     * - form : csrf_field(), set_value()
+     *
+     * @var list<string>
      */
+    protected $helpers = ['url', 'form'];
 
-    // protected $session;
+    /**
+     * Service session, siap dipakai di semua controller.
+     */
+    protected Session $session;
 
     /**
      * @return void
      */
     public function initController(RequestInterface $request, ResponseInterface $response, LoggerInterface $logger)
     {
-        // Load here all helpers you want to be available in your controllers that extend BaseController.
-        // Caution: Do not put the this below the parent::initController() call below.
-        // $this->helpers = ['form', 'url'];
-
-        // Caution: Do not edit this line.
+        // Jangan ubah baris ini.
         parent::initController($request, $response, $logger);
 
-        // Preload any models, libraries, etc, here.
-        // $this->session = service('session');
+        $this->session = service('session');
     }
 }
