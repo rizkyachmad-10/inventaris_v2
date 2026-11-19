@@ -35,7 +35,7 @@ abstract class BaseController extends Controller
      */
     public function initController(RequestInterface $request, ResponseInterface $response, LoggerInterface $logger)
     {
-        // Jangan ubah baris ini.
+        
         parent::initController($request, $response, $logger);
 
         $this->session = service('session');
